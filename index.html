@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ραψωδία ε (ενότητα 8)</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        h1 {
+            color: gold;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            gap: 10px;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: gold;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        button.small {
+            font-size: 12px;
+            padding: 5px 10px;
+            width: 120px;
+            margin-top: 8px;
+            background-color: silver;
+        }
+        .container {
+            position: relative;
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            height: 80vh;
+            display: none;
+        }
+        .scene {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            color: white;
+            padding: 20px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        .correct {
+            background-color: green !important;
+            color: white;
+        }
+        .incorrect {
+            background-color: red !important;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ραψωδία ε (ενότητα 8)</h1>
+    
+    <div class="controls">
+        <script>
+            for (let i = 6; i <= 10; i++) {
+                document.write(`
+                    <div class="button-group">
+                        <button onclick="showScene(${i})">📜 Σκηνή ${i}</button>
+                        <button class="small" onclick="openCaption(${i})">📜 Λεζάντα</button>
+                    </div>
+                `);
+            }
+        </script>
+    </div>
+    
+    <div class="container" id="capture-area">
+        <script>
+            for (let i = 6; i <= 10; i++) {
+                document.write(`<img id="scene${i}" class="scene" src="scene${i}.png" alt="Σκηνή ${i}">`);
+            }
+        </script>
+    </div>
+    
+    <div id="captionPopup" class="popup">
+        <p>Επιλέξτε τη σωστή λεζάντα:</p>
+        <button id="captionOption1" onclick="checkCaption(this)"></button>
+        <button id="captionOption2" onclick="checkCaption(this)"></button>
+        <button onclick="closeCaption()">Κλείσιμο ❌</button>
+    </div>
+    
+    <script>
+        let correctCaptions = [
+            "Ο Οδυσσέας στη βραχώδη ακτή της Ωγυγίας, γεμάτος θλίψη", "Η Καλυψώ ανακοινώνει στον Οδυσσέα την απόφασή της να τον αφήσει να φύγει", 
+            "Ο Οδυσσέας και η Καλυψώ στο τελευταίο τους γεύμα πριν την αναχώρηση", "Ο Οδυσσέας κατασκευάζει τη σχεδία του", "Ο Οδυσσέας αναχωρεί από την Ωγυγία"
+        ];
+        
+        let distractorCaptions = [
+            "Ο Οδυσσέας συναντά έναν μυστηριώδη ξένο στην ακτή", "Η Καλυψώ θυμώνει με την απόφαση των θεών", "Ο Οδυσσέας ετοιμάζεται για μια γιορτή στο νησί", 
+            "Η Καλυψώ προσφέρει δώρα στον Οδυσσέα", "Ο Οδυσσέας προσεύχεται πριν ξεκινήσει το ταξίδι του"
+        ];
+        
+        function showScene(sceneNumber) {
+            document.querySelectorAll('.scene').forEach(scene => scene.style.display = 'none');
+            document.getElementById(`scene${sceneNumber}`).style.display = 'block';
+            document.querySelector('.container').style.display = 'block';
+        }
+        
+        function openCaption(sceneNumber) {
+            let correct = correctCaptions[sceneNumber - 6];
+            let distractor = distractorCaptions[sceneNumber - 6];
+            let options = [
+                { text: correct, isCorrect: true },
+                { text: distractor, isCorrect: false }
+            ];
+            options.sort(() => Math.random() - 0.5);
+            document.getElementById('captionOption1').innerText = options[0].text;
+            document.getElementById('captionOption1').setAttribute("data-correct", options[0].isCorrect);
+            document.getElementById('captionOption2').innerText = options[1].text;
+            document.getElementById('captionOption2').setAttribute("data-correct", options[1].isCorrect);
+            document.getElementById('captionPopup').style.display = 'block';
+        }
+
+        function checkCaption(button) {
+            if (button.getAttribute("data-correct") === "true") {
+                button.classList.add("correct");
+            } else {
+                button.classList.add("incorrect");
+            }
+        }
+
+        function closeCaption() {
+            document.getElementById('captionPopup').style.display = 'none';
+            document.getElementById('captionOption1').classList.remove("correct", "incorrect");
+            document.getElementById('captionOption2').classList.remove("correct", "incorrect");
+        }
+    </script>
+</body>
+</html>
 
