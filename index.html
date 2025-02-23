@@ -14,6 +14,12 @@
         h1 {
             color: gold;
         }
+        .author {
+            font-size: 14px;
+            color: white;
+            text-align: center;
+            margin-top: 10px;
+        }
         .controls {
             display: flex;
             justify-content: center;
@@ -82,6 +88,7 @@
     </style>
 </head>
 <body>
+    <div class="author">Δημιουργία: Παναγιώτης Δόμβρος 2025 (CC BY-NC)</div>
     <h1>Ραψωδία ε (ενότητα 8)</h1>
     
     <div class="controls">
@@ -143,21 +150,6 @@
             document.getElementById('captionOption2').setAttribute("data-correct", options[1].isCorrect);
             document.getElementById('captionPopup').style.display = 'block';
         }
-
-        function checkCaption(button) {
-            if (button.getAttribute("data-correct") === "true") {
-                button.classList.add("correct");
-            } else {
-                button.classList.add("incorrect");
-            }
-        }
-
-        function closeCaption() {
-            document.getElementById('captionPopup').style.display = 'none';
-            document.getElementById('captionOption1').classList.remove("correct", "incorrect");
-            document.getElementById('captionOption2').classList.remove("correct", "incorrect");
-        }
     </script>
 </body>
 </html>
-
